@@ -1,0 +1,18 @@
+<h1>Listing audio_queues</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% for audio_queue in @audio_queues %>
+  <tr>
+    <td><%= link_to 'Show', audio_queue %></td>
+    <td><%= link_to 'Edit', edit_audio_queue_path(audio_queue) %></td>
+    <td><%= link_to 'Destroy', audio_queue, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New audio_queue', new_audio_queue_path %>

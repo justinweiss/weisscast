@@ -1,0 +1,12 @@
+<h1>Editing audio_queue</h1>
+
+<%= error_messages_for :audio_queue %>
+
+<% form_for(@audio_queue) do |f| %>
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @audio_queue %> |
+<%= link_to 'Back', audio_queues_path %>
