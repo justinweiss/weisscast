@@ -6,9 +6,11 @@
 
 <% for audio_file in @audio_files %>
   <tr>
-    <td><%= link_to 'Show', audio_file %></td>
+    <td><%= audio_file.filename %></td>
+    <td><%= link_to 'Add to queue', audio_queues_path('audio_queue[audio_file_id]' => audio_file.id), :method => :post %>
+    <!-- <td><%= link_to 'Show', audio_file %></td>
     <td><%= link_to 'Edit', edit_audio_file_path(audio_file) %></td>
-    <td><%= link_to 'Destroy', audio_file, :confirm => 'Are you sure?', :method => :delete %></td>
+    <td><%= link_to 'Destroy', audio_file, :confirm => 'Are you sure?', :method => :delete %></td> -->
   </tr>
 <% end %>
 </table>

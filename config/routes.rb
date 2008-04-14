@@ -12,6 +12,9 @@ ActionController::Routing::Routes.draw do |map|
   # Sample resource route (maps HTTP verbs to controller actions automatically):
   #   map.resources :products
 
+  map.resources :audio_files
+  map.resources :audio_queues
+
   # Sample resource route with options:
   #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
 
