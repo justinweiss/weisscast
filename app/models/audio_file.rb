@@ -1,4 +1,5 @@
 require 'id3lib'
+require 'iconv'
 
 class AudioFile < ActiveRecord::Base
   has_many :audio_queues
@@ -10,10 +11,19 @@ class AudioFile < ActiveRecord::Base
     @tag ||= ID3Lib::Tag.new(self.full_filename)
   end
   
+  def convert_if_necessary(string)
+    if /^\xFE\xFF/ =~ string
+      Iconv.new('utf-8//IGNORE', 'utf-16').iconv(string)
+    else
+      string
+    end
+  end
+  
   after_attachment_saved do |record|
-    record.artist = record.tag.artist
-    record.album = record.tag.album
-    record.title = record.tag.title
+    debugger
+    record.artist = record.convert_if_necessary(record.tag.artist)
+    record.album = record.convert_if_necessary(record.tag.album)
+    record.title = record.convert_if_necessary(record.tag.title)
     record.save!
   end
   
