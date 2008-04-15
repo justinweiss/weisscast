@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class AudioFilesController < ApplicationController
   
   def new
@@ -7,8 +9,8 @@ class AudioFilesController < ApplicationController
   def create
     @audio_file = AudioFile.new(params[:audio_file])
     if @audio_file.save
-      flash[:notice] = 'Audio file was successfully created.'
-      redirect_to audio_file_url(@audio_file)     
+      flash[:notice] = 'Audio file was successfully uploaded.'
+      redirect_to audio_files_url  
     else
       render :action => :new
     end
@@ -16,6 +18,8 @@ class AudioFilesController < ApplicationController
   end
   
   def index
+    @now_playing = open('http://localhost:8000/now_playing').read
     @audio_files = AudioFile.find(:all)
+    @audio_queue = AudioQueue.find(:all, :order => :position)
   end
 end

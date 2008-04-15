@@ -53,9 +53,13 @@ end
 
 
 class ActiveRecordLameReader < LameReader
+  
+  def now_playing
+    @track
+  end
+  
   def next_track
-    track = AudioQueue.find(:first, :order => :position)
-    filename = track && track.audio_file.public_filename
-    AudioQueue.destroy(track)
+    @track = AudioQueue.pop_audio_file
+    @track.full_filename
   end
 end
