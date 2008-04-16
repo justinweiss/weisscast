@@ -10,6 +10,8 @@ Next:
     <li><%= queue_entry.audio_file.display_name %></li>
   <% end %>
 </ul>
+
+<%= link_to 'Upload an MP3', new_audio_file_path %>
 <hr />
 
 <table>
@@ -26,8 +28,3 @@ Next:
   </tr>
 <% end %>
 </table>
-
-
-<br />
-
-<%= link_to 'Upload an MP3', new_audio_file_path %>
