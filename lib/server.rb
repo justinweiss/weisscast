@@ -57,7 +57,9 @@ class NowPlayingHandler < Mongrel::HttpHandler
 
   
   def process(request, response)
-    track_text = StreamHandler.media_server && StreamHandler.media_server.now_playing.display_name
+    track_text = StreamHandler.media_server && 
+      StreamHandler.media_server.now_playing && 
+      StreamHandler.media_server.now_playing.display_name
     
     if track_text
       response.start(200) do |head,out|
@@ -65,9 +67,9 @@ class NowPlayingHandler < Mongrel::HttpHandler
         out.write(track_text)
       end
     else
-      response.start(500) do |head,out|
+      response.start(200) do |head,out|
         head['Content-Type'] = 'text/plain'
-        out.write("Server has not been started.")
+        out.write("Nothing")
       end
     end
     

@@ -4,17 +4,25 @@
 
 <h2><%= link_to "Listen!", "/radio.m3u"%></h2>
 
+Next:
+<ul>
+  <% @audio_queue.each do |queue_entry| %>
+    <li><%= queue_entry.audio_file.display_name %></li>
+  <% end %>
+</ul>
+<hr />
+
 <table>
   <tr>
   </tr>
 
 <% for audio_file in @audio_files %>
   <tr>
-    <td><%= audio_file.display_name %></td>
-    <td><%= link_to 'Add to queue', audio_queues_path('audio_queue[audio_file_id]' => audio_file.id), :method => :post %>
+    <td><%= link_to audio_file.display_name, audio_queues_path('audio_queue[audio_file_id]' => audio_file.id), :method => :post %><br / ><div class="album">(<%= audio_file.album %>)</div></td>
+    <td><%= link_to 'Add to playlist', audio_queues_path('audio_queue[audio_file_id]' => audio_file.id), :method => :post %>
     <!-- <td><%= link_to 'Show', audio_file %></td>
-    <td><%= link_to 'Edit', edit_audio_file_path(audio_file) %></td>
-    <td><%= link_to 'Destroy', audio_file, :confirm => 'Are you sure?', :method => :delete %></td> -->
+    <td><%= link_to 'Edit', edit_audio_file_path(audio_file) %></td> -->
+    <td><%= link_to 'X', audio_file, :confirm => 'Are you sure?', :method => :delete %></td>
   </tr>
 <% end %>
 </table>
@@ -23,13 +31,3 @@
 <br />
 
 <%= link_to 'Upload an MP3', new_audio_file_path %>
-
-<hr />
-
-Queue:
-
-<ul>
-  <% @audio_queue.each do |queue_entry| %>
-    <li><%= queue_entry.audio_file.display_name %></li>
-  <% end %>
-</ul>

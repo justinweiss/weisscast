@@ -17,9 +17,25 @@ class AudioFilesController < ApplicationController
     
   end
   
+  def destroy
+    @audio_file = AudioFile.find(params[:id])
+    if @audio_file.destroy
+      flash[:notice] = 'Audio file was successfully deleted.'
+      redirect_to audio_files_url
+    else
+      redirect_to audio_files_url
+    end
+    
+  end
+  
   def index
-    @now_playing = open('http://localhost:8000/now_playing').read
-    @audio_files = AudioFile.find(:all)
+    @now_playing = 
+      begin
+        open('http://localhost:8000/now_playing').read
+      rescue
+        "Server not started"
+      end      
+    @audio_files = AudioFile.find(:all, :order => "artist, album, title")
     @audio_queue = AudioQueue.find(:all, :order => :position)
   end
 end
